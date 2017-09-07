@@ -4,6 +4,8 @@ Implement a key-value store gRPC service using [RocksDB](https://pypi.python.org
 
 ### 1. How to install dependency
 
+* RocksDB native - https://github.com/facebook/rocksdb/blob/master/INSTALL.md
+
 ```sh
 python3 -m venv venv
 source venv/bin/activate
