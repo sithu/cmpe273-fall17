@@ -42,7 +42,7 @@ GET http://localhost:8000/api/v1/scripts/{script-id}
 ### Request
 
 ```bash
-curl -i -H "Content-Type: multipart/form-data" 
+curl -i
 http://localhost:8000/api/v1/scripts/123456
 ```
 
