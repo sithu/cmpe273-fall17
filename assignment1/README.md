@@ -5,7 +5,7 @@ You will be implementing a dynamic Python invoker REST service. The service will
 ## 1. Python Script Uploader
 
 ```bash
-POST http://localhost:8000/api/v1/upload
+POST http://localhost:8000/api/v1/scripts
 ```
 
 ### Request
@@ -20,7 +20,7 @@ print("Hello World")
 
 ```bash
 curl -i -X POST -H "Content-Type: multipart/form-data" 
--F "data=@/tmp/foo.py" http://localhost:8000/api/v1/upload
+-F "data=@/tmp/foo.py" http://localhost:8000/api/v1/scripts
 ```
 
 ```bash
