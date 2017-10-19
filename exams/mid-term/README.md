@@ -35,5 +35,5 @@ Server started at...3000
 ```sh
 $ python3 client.py
 Encode URL=goog: id=1484658
-Decode id=1484658: URL=1484658
+Decode id=1484658: URL=goog
 ```
