@@ -13,7 +13,7 @@ pip install grpcio-tools
 ### 2. How to generate Python gRPC code from your .proto service definition.
 
 ```sh
-python3.6 -m grpc.tools.protoc -I. --python_out=. --grpc_python_out=. encoder.proto 
+python3 -m grpc.tools.protoc -I. --python_out=. --grpc_python_out=. encoder.proto 
 ```
 
 ### 3. Implement all TODO sections in server.py
