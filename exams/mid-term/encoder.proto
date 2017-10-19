@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+message EncodeRequest {
+    string url = 1;
+}
+
+message EncodeResponse {
+    uint32 id = 1;
+}
+
+message DecodeRequest {
+    uint32 id = 1;
+}
+
+message DecodeResponse {
+    string url = 1;
+}
+
+service Encoder {
+    rpc encode(EncodeRequest) returns (EncodeResponse) {}
+    rpc decode(DecodeRequest) returns (DecodeResponse) {}
+}
