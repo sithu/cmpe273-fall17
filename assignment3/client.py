@@ -8,6 +8,11 @@ class ReplicatorClient():
         channel = grpc.insecure_channel('%s:%d' % (host, port))
         self.stub = replicator_pb2_grpc.ReplicatorStub(channel)
 
-    def send(self, data):
-        response = self.stub.send(replicator_pb2.Request(data=data))
-        return response.data
+    def send(self, cmd, arg):
+        response = self.stub.send(replicator_pb2.Request(
+            cmd=cmd,
+            argument=arg,
+            merkleRootHash='TODO',
+            cmdHash='TODO'
+        ))
+        return response.result

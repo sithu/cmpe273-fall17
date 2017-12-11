@@ -3,6 +3,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -19,9 +20,39 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='replicator.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x10replicator.proto\"\x17\n\x07Request\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t\"\x18\n\x08Response\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\t2+\n\nReplicator\x12\x1d\n\x04send\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10replicator.proto\"^\n\x07Request\x12\x18\n\x03\x63md\x18\x01 \x01(\x0e\x32\x0b.RocksDBCmd\x12\x10\n\x08\x61rgument\x18\x02 \x01(\t\x12\x16\n\x0emerkleRootHash\x18\x03 \x01(\t\x12\x0f\n\x07\x63mdHash\x18\x04 \x01(\t\"\x1a\n\x08Response\x12\x0e\n\x06result\x18\x01 \x01(\x08*.\n\nRocksDBCmd\x12\x0b\n\x07unknown\x10\x00\x12\x07\n\x03put\x10\x01\x12\n\n\x06\x64\x65lete\x10\x02\x32+\n\nReplicator\x12\x1d\n\x04send\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3')
 )
 
+_ROCKSDBCMD = _descriptor.EnumDescriptor(
+  name='RocksDBCmd',
+  full_name='RocksDBCmd',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='unknown', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='put', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='delete', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=144,
+  serialized_end=190,
+)
+_sym_db.RegisterEnumDescriptor(_ROCKSDBCMD)
+
+RocksDBCmd = enum_type_wrapper.EnumTypeWrapper(_ROCKSDBCMD)
+unknown = 0
+put = 1
+delete = 2
 
 
 
@@ -33,8 +64,29 @@ _REQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='data', full_name='Request.data', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='cmd', full_name='Request.cmd', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='argument', full_name='Request.argument', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='merkleRootHash', full_name='Request.merkleRootHash', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='cmdHash', full_name='Request.cmdHash', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -52,7 +104,7 @@ _REQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=20,
-  serialized_end=43,
+  serialized_end=114,
 )
 
 
@@ -64,9 +116,9 @@ _RESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='data', full_name='Response.data', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='result', full_name='Response.result', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -82,12 +134,14 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=45,
-  serialized_end=69,
+  serialized_start=116,
+  serialized_end=142,
 )
 
+_REQUEST.fields_by_name['cmd'].enum_type = _ROCKSDBCMD
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
+DESCRIPTOR.enum_types_by_name['RocksDBCmd'] = _ROCKSDBCMD
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), dict(
@@ -112,8 +166,8 @@ _REPLICATOR = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=71,
-  serialized_end=114,
+  serialized_start=192,
+  serialized_end=235,
   methods=[
   _descriptor.MethodDescriptor(
     name='send',

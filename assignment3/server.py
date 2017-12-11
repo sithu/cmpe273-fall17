@@ -14,7 +14,7 @@ from concurrent import futures
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
-class MyReplicatorServicer(replicator_pb2.ReplicatorServicer):
+class ReplicatorServer(replicator_pb2.ReplicatorServicer):
     def __init__(self):
         print("init")
         #self.db = rocksdb.DB("lab1.db", rocksdb.Options(create_if_missing=True))
@@ -34,7 +34,8 @@ class MyReplicatorServicer(replicator_pb2.ReplicatorServicer):
         return replicator_pb2.Response(data=value)
 
     def send(self, request, context):
-        return replicator_pb2.Response(data=request.data[::-1])
+        print(request)
+        return replicator_pb2.Response(result=True)
 
 
 def start_replicator_server(host, port):
@@ -42,7 +43,7 @@ def start_replicator_server(host, port):
     Run the GRPC Replicator listener server
     '''
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
-    replicator_pb2_grpc.add_ReplicatorServicer_to_server(MyReplicatorServicer(), server)
+    replicator_pb2_grpc.add_ReplicatorServicer_to_server(ReplicatorServer(), server)
     server.add_insecure_port('%s:%d' % (host, port))
     server.start()
     return server

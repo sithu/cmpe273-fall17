@@ -1,11 +1,20 @@
 syntax = "proto3";
 
+enum RocksDBCmd {
+    unknown = 0;
+    put = 1;
+    delete = 2;
+}
+
 message Request {
-    string data = 1;
+    RocksDBCmd cmd = 1;
+    string argument = 2;
+    string merkleRootHash = 3;
+    string cmdHash = 4;
 }
 
 message Response {
-    string data = 1;
+    bool result = 1;
 }
 
 service Replicator {

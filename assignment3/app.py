@@ -4,11 +4,14 @@ import argparse
 from server import start_replicator_server
 from client import ReplicatorClient
 
-def get_input(cmd):
-    if cmd == 'put':
-        return cmd
+def get_input(input):
+    tokens = input.split()
+    if len(tokens) != 2: return None, None
+    cmd, arg = tokens
+    if cmd == 'put' or cmd == 'delete':
+        return cmd, arg
     else:
-        return cmd
+        return None, None
 
 def run_forever(host, server_port, peer_port):
     server = start_replicator_server(host, int(server_port))
@@ -18,7 +21,9 @@ def run_forever(host, server_port, peer_port):
         while True:
             i = input("\nEnter 'q' to quit: \n_db_>")
             if i == "q": break
-            resp = client.send(get_input(i))
+            cmd, arg = get_input(i)
+            if not cmd: continue
+            resp = client.send(cmd, arg)
             print('Peer Response={}'.format(resp))
     except KeyboardInterrupt:
         server.stop(0)
