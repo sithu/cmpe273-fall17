@@ -1,6 +1,6 @@
 # Final Exam Coding Questions
 
-You will be completing the missing parts of a multi-crypocurrency blockchain platform which will support all universities through the U.S. Each university has their own currency (symbol) and total supply token amount. Under each currency, user uses wallet to store a 
+You will be completing the missing parts of a multi-crypocurrency blockchain platform which will support all universities throughout the U.S. Each university has their own currency (symbol) and total supply token amount. Under each currency, user uses wallet to store a 
 digital value and can make transfers between wallets.
 
 ### 1. Install dependency
