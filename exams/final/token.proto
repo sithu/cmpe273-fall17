@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+message Data {
+  map<string, string> entry = 1;
+}
+
+message TransferRequest {
+    string symbol = 1;
+    string fromWallet = 2;
+    string toWallet = 3;
+    int32 amount = 4;
+}
+
+message TransferResponse {
+    string status = 1;
+}
+
+message Empty {}
+
+message InfoResponse {
+    Data data = 1;
+}
+
+service Token {
+    rpc transfer(TransferRequest) returns (TransferResponse) {}
+    rpc info(Empty) returns (InfoResponse) {}
+}
